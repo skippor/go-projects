@@ -1,5 +1,16 @@
 # go-projects
 
+## env
+
+```shell
+cat ~/.config/go/env
+GO111MODULE=on
+GOPATH=/mnt/dtt/go
+GOPROXY=http://mirrors.xxx.org/nexus/repository/go-proxy-group,http://goproxy.xxx.com:9080
+GOSUMDB=off
+```
+
+
 ## example
 
 ```shell

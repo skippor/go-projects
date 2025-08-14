@@ -1,34 +1,49 @@
 package main
 
 import (
-	"fmt"
-	log "github.com/zeromicro/go-zero/core/logx"
+    "context"
+    "fmt"
+    "sync"
+    "time"
+    "runtime"
 )
 
-ctx     context.Context
-wg      *sync.WaitGroup
+const (
+    _maxProc = 4
+    _tickerInterval = 1
+)
 
-func test() {
-    ticker := time.NewTicker(_tcpCollectInterval * time.Second)
+func worker(ctx context.Context, wg *sync.WaitGroup) {
+    defer wg.Done()
+
+    ticker := time.NewTicker(_tickerInterval * time.Second)
     defer ticker.Stop()
 
     for {
         select {
-        case <-t.ctx.Done():
-            log.Infof("TcpRoutine: received cancel signal, exiting...")
+        case <-ctx.Done():
+            fmt.Println("goroutine finished")
             return
         case <-ticker.C:
-            log.Infof("TcpRoutine: received cancel signal, exiting...")
-            return
+            fmt.Println("goroutine ticker done")
+        default:
+            fmt.Println("goroutine running")
+            time.Sleep(500 * time.Millisecond)
         }
     }
 }
 
 func main() {
-    runtime.GOMAXPROCS(_macProc)
+    runtime.GOMAXPROCS(_maxProc)
 
     ctx, cancel := context.WithCancel(context.Background())
     wg := &sync.WaitGroup{}
 
-    tcp.Init(ctx, wg)
+    wg.Add(1)
+    go worker(ctx, wg)
+
+    time.Sleep(5 * time.Second)
+    cancel()
+    
+    wg.Wait()
 }
