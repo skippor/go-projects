@@ -36,3 +36,6 @@ $ ./hello
 * etcd
 * mongodb
 * mysql
+* GraphQL
+* cgo
+* restful
