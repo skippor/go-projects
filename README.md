@@ -30,12 +30,13 @@ $ ./hello
 
 ## todo
 
+* convey
 * grpc
 * redis
 * kafka
 * etcd
 * mongodb
 * mysql
-* GraphQL
+* GraphQL - gqlgen
 * cgo
 * restful
